@@ -23,24 +23,29 @@ section:first-child {display: block;}
 
 		<section>
 			<h1>i@uto</h1>
-			<button class="btn" ng-click="nextStep($event)">I want a new car</button>
-			<button class="btn" ng-click="nextStep($event)">I want a used car</button>
+			<button class="btn btn-info" ng-click="nextStep($event)">I want a new car</button>
+			<button class="btn btn-info" ng-click="nextStep($event)">I want a used car</button>
+
+
+			<button class="btn btn-info" ng-click="testAPI($event)">Test API</button>
 		</section>
 
 		<section>
 			<h1>What is your budget?</h1>
-			<input type="text"> to <input type="text">
+			<input type="number" ng-model="selected.price_min"> to <input type="number" ng-model="selected.price_max">
 
 			<div class="col-xs-12">
-				<button class="btn" 
+				<button class="btn btn-info" 
 					ng-click="nextStep($event); selected.preference = 'comfort'">Comfort</button>
-				<button class="btn" 
+				<button class="btn btn-info" 
 					ng-click="nextStep($event); selected.preference = 'performance'">Performance</button>
-				<button class="btn" 
+				<button class="btn btn-info" 
 					ng-click="nextStep($event); selected.preference = 'eco'">Eco</button>
 			</div>	
 
-			<button class="btn" ng-click="prevStep($event)">Back</button>	
+			<div class="col-xs-12">
+				<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+			</div>
 
 		</section>		
 
@@ -48,10 +53,11 @@ section:first-child {display: block;}
 			<h1>What type of vehicle are you looking for?</h1>
 
 			<div class="list-group">
-			  <a href="#" class="list-group-item" ng-repeat="x in car.types" ng-click="nextStep($event)">{{x}}</a>
+			 	<a href="#" class="list-group-item" ng-repeat="x in car.types" 
+			 		ng-click="nextStep($event); selected.type = x">{{x}}</a>
 			</div>	
 
-			<button class="btn" ng-click="prevStep($event)">Back</button>			
+			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>			
 		</section>
 
 		<section>
@@ -59,7 +65,7 @@ section:first-child {display: block;}
 
 			<label>Most Important</label>
 			<select class="form-control" 
-				ng-model="seleted.feature1" ng-options="x for x in car.features">
+				ng-model="selected.feature1" ng-options="x for x in car.features">
 			</select>
 
 			<label>2nd Most</label>
@@ -72,8 +78,8 @@ section:first-child {display: block;}
 				ng-model="selected.feature3" ng-options="x for x in car.features">
 			</select>
 
-			<button class="btn" ng-click="prevStep($event)">Back</button>	
-			<button class="btn" ng-click="nextStep($event)">Next</button>
+			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+			<button class="btn btn-info" ng-click="nextStep($event)">Next</button>
 		</section>
 
 
@@ -100,8 +106,8 @@ section:first-child {display: block;}
 				ng-model="selected.engine" ng-options="x for x in car.engines">
 			</select>
 
-			<button class="btn" ng-click="prevStep($event)">Back</button>	
-			<button class="btn" ng-click="nextStep($event)">Get Results</button>
+			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+			<button class="btn btn-info" ng-click="nextStep($event)">Get Results</button>
 
 		</section>
 
@@ -118,8 +124,8 @@ section:first-child {display: block;}
 				Third Result
 			</div>
 
-			<button class="btn" ng-click="prevStep($event)">Back</button>	
-			<button class="btn" ng-click="resetForm($event)">Start Over</button>
+			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+			<button class="btn btn-info" ng-click="resetForm($event)">Start Over</button>
 		</section>
 
 	</main>

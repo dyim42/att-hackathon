@@ -1,7 +1,7 @@
 
 var app = angular.module('app', []);
 
-app.controller('mainController', ['$scope', function($scope) {
+app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 
 	$scope.api = "localhost:5000/search";
 	$scope.results = '';
@@ -69,16 +69,17 @@ app.controller('mainController', ['$scope', function($scope) {
 
 	$scope.selected = {
 		"new_car" : 1,
-		"price_min": 0,
-		"price_max": 0,
+		"price_min": 10000,
+		"price_max": 20000,
 		"preference": "",
+		"type": "",
 		"feature1": "",
 		"feature2": "",
 		"feature3": "",
-		"specifics1": "",
-		"specifics2": "",
-		"specifics3": "",
-		"specifics4": ""
+		"color": "",
+		"transmission": "",
+		"drivetrain": "",
+		"engine": ""
 	};
 
     $scope.loadResults = function() {
@@ -149,13 +150,42 @@ app.controller('mainController', ['$scope', function($scope) {
         console.clear();
         console.dir($scope.selected);
 
-        const util = require('util');
-
-		// console.log(util.inspect(myObject, {showHidden: false, depth: null}))
-
-		// alternative shortcut
-		console.log(util.inspect($scope.selected, false, null))
-
     }
+
+ //    $scope.callAPI = function() {
+
+	//     $http({
+	// 	  method: 'POST',
+	// 	  url: $scope.api
+	// 	  data: $scope.selected
+	// 	}).then(function successCallback(response) {
+	// 	    // this callback will be called asynchronously
+	// 	    // when the response is available
+	// 	  }, function errorCallback(response) {
+	// 	    // called asynchronously if an error occurs
+	// 	    // or server returns response with an error status.
+	// 	  });
+	// }
+
+	$scope.testAPI = function() {
+
+		$http({
+		  method: 'GET',
+		  url: 'http://www.timeapi.org/utc/now',
+		  headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin' : '*'}
+
+		}).then(function successCallback(response) {
+		    // this callback will be called asynchronously
+		    // when the response is available
+
+		    console.log('Success');
+		    console.log(response);
+		  }, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		    console.log('Error');
+		    console.log(response);
+		  });	
+	}
 
 }]);
