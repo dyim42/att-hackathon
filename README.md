@@ -16,6 +16,6 @@
 		"color": "Blue",
 		"transmission": "Manual",
 		"drivetrain": "Front-wheel drive",
-		"engine": "4"
+		"engine": 4
 	};
 ```	
