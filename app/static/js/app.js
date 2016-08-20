@@ -4,7 +4,12 @@ var app = angular.module('app', []);
 app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 
 	$scope.api = "localhost:5000/search";
+	$scope.tComfort = false;
+	$scope.tPerformance = false;
+	$scope.tEco = false;
+	
 	$scope.results = {};
+	$scope.features = [];
 	$scope.car = {
 		types : [
 			"Sedan",

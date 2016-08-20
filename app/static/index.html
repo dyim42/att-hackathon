@@ -7,13 +7,13 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <style>
 
-section { padding-top: 10px; padding-bottom: 30px; display: none;}
-section:first-child {display: block;}
+
 
 </style>
 
@@ -21,112 +21,201 @@ section:first-child {display: block;}
 
 	<main id="content" class="container" ng-controller="mainController">
 
-		<section>
-			<h1>i@uto</h1>
-			<button class="btn btn-info" ng-click="nextStep($event)">I want a new car</button>
-			<button class="btn btn-info" ng-click="nextStep($event)">I want a used car</button>
+		<h1 class="text-center">iAuto</h1>
 
+		<div class="step-form">
 
-			<button class="btn btn-info" ng-click="testAPI($event)">Test Time API</button>
-		</section>
+			<section id="new-or-used" class="col-xs-12">
 
-		<section>
-			<h1>What is your budget?</h1>
-			<input type="number" ng-model="selected.price_min"> to <input type="number" ng-model="selected.price_max">
+				<h4>First things first...</h1>
 
-			<div class="col-xs-12">
-				<button class="btn btn-info" 
-					ng-click="nextStep($event); selected.preference = 'comfort'">Comfort</button>
-				<button class="btn btn-info" 
-					ng-click="nextStep($event); selected.preference = 'performance'">Performance</button>
-				<button class="btn btn-info" 
-					ng-click="nextStep($event); selected.preference = 'eco'">Eco</button>
-			</div>	
+				<div class="row">
+					<div class="col-xs-6">
+						<a class="image-button box" ng-click="nextStep($event); selected.new_car = 1">
+							<label>I want to buy new.</label>
+						</a>
+					</div>
 
-			<div class="col-xs-12">
+					<div class="col-xs-6">
+						<a class="image-button box" ng-click="nextStep($event); selected.new_car = 0">
+							<label>I want to buy pre-owned</label>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section id="budget-and-type" class="col-xs-12">
+				<h4>Next, let's check just a few things.</h4>
+
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="box">
+							<h5>Location, Zip</h5>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="box">
+							<h5>Budget</h5>
+
+							<input type="number" class="form-control" ng-model="selected.price_min">
+							<input type="number"  class="form-control" ng-model="selected.price_max">						
+						</div>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box text-center">
+							<h5>Type of Car</h5>
+
+							 <button href="#" class="" ng-repeat="x in car.types" 
+							 		ng-click="selected.type = x">{{x}}</button>
+
+						</div>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="col-xs-12">
+					<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+					<button class="btn btn-info" ng-click="nextStep($event)">Next</button>
+				</div>
+
+			</section>		
+
+			<section id="features">
+				<h4>Finally, let's make this a little personal...</h4>
+
+				<div class="row">
+					<div class="col-xs-3">
+						<a class="image-button box" 
+							ng-click="selected.preference = 'comfort'; tComfort = !tComfort" 
+							ng-class="{'active' : toggle}">
+							Comfort
+						</a>
+					</div>
+					<div class="col-xs-1">
+					</div>
+					<div class="col-xs-3">
+						<a class="image-button box" ng-click="selected.preference = 'performance'; tPerformance = !tPerformance">
+							Performance
+						</a>
+					</div>
+					<div class="col-xs-1">
+					</div>
+					<div class="col-xs-3">
+						<a class="image-button box" ng-click="selected.preference = 'eco'; tEco = !tEco">
+							Eco
+						</a>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="row">
+					<div class="box">
+						<div class="col-xs-9">
+							<div class="col-xs-3">
+								<p>Selected Features:</p>
+								<ul>
+									<li ng-repeat="x in features" >{{x}}</li>
+			 					</ul>
+							</div>
+							<div class="col-xs-3">
+								<ul>
+									<li><a href="" ng-click="features.push('Cruise Control')">Cruise Control</a></li>
+									<li><a href="" ng-click="features.push('3rd Row Seats')">3rd Row Seats</a></li>
+									<li><a href="" ng-click="features.push('Backup Camera')">Backup Camera</a></li>
+									<li><a href="" ng-click="features.push('Multizone Climate')">Multizone Climate</a></li>
+									<li><a href="" ng-click="features.push('Rear seat entertainment')">Rear seat entertainment</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<ul>
+									<li><a href="" ng-click="features.push('Navigation')">Navigation</a></li>
+									<li><a href="" ng-click="features.push('Bluetooth')">Bluetooth</a></li>
+									<li><a href="" ng-click="features.push('Heated Seats')">Heated Seats</a></li>
+									<li><a href="" ng-click="features.push('Leather Seats')">Leather Seats</a></li>
+									<li><a href="" ng-click="features.push('Sunroof')">Sunroof</a></li>		
+								</ul>					
+							</div>
+							<div class="col-xs-3">
+								<ul>
+									<li><a href="" ng-click="features.push('Power Drivers seat')">Power Drivers seat</a></li>
+									<li><a href="" ng-click="features.push('Heated Steering Wheel')">Heated Steering Wheel</a></li>
+									<li><a href="" ng-click="features.push('Remote Start')">Remote Start</a></li>
+									<li><a href="" ng-click="features.push('Premium Audio')">Premium Audio</a></li>
+								</ul>							
+							</div>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control" 
+								ng-model="selected.color" ng-options="x for x in car.colors">
+							</select>
+							<select class="form-control" 
+								ng-model="selected.transmission" ng-options="x for x in car.transmissions">
+							</select>
+							<!-- 
+							<select class="form-control" 
+								ng-model="selected.drivetrain" ng-options="x for x in car.drivetrains">
+							</select> -->
+							<select class="form-control" 
+								ng-model="selected.engine" ng-options="x for x in car.engines">
+							</select>
+						</div>
+					</div>
+
+				</div>
+
+				<br>
+
 				<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
-			</div>
+				<button class="btn btn-info" ng-click="nextStep($event)">Next</button>
+			</section>
 
-		</section>		
+			<section id="results">
+				<h4>These are your best matches!</h4>
 
-		<section>
-			<h1>What type of vehicle are you looking for?</h1>
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="col-xs-4">
+							<label>2016 Civic</label>
+							<img src="images/Honda.png">
+							<button class="btn white">Details</button>
+							<button class="btn orange">Schedule Test Drive</button>
+						</div>
+						<div class="col-xs-4">
+							<label>2016 Corolla</label>
+							<img src="images/Toyota.png">
+							<button class="btn white">Details</button>
+							<button class="btn orange">Schedule Test Drive</button>
+						</div>
+						<div class="col-xs-4">
+							<label>2016 Sentra</label>
+							<img src="images/Nissan.png">
+							<button class="btn white">Details</button>
+							<button class="btn orange">Schedule Test Drive</button>
+						</div>
+					</div>
+				</div>
 
-			<div class="list-group">
-			 	<a href="#" class="list-group-item" ng-repeat="x in car.types" 
-			 		ng-click="nextStep($event); selected.type = x">{{x}}</a>
-			</div>	
+				<br>
+				<br>
+<!-- 
+				<div class="primary-result">
+					<pre>{{ results | json : spacing }}</pre>
+				</div> -->
 
-			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>			
-		</section>
+				<div class="col-xs-12">
+					<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
+					<button class="btn btn-info" ng-click="resetForm($event)">Start Over</button>
+				</div>
 
-		<section>
-			<h1>What are your most important features?</h1>
-
-			<label>Most Important</label>
-			<select class="form-control" 
-				ng-model="selected.feature1" ng-options="x for x in car.features">
-			</select>
-
-			<label>2nd Most</label>
-			<select class="form-control" 
-				ng-model="selected.feature2" ng-options="x for x in car.features">
-			</select>
-
-			<label>3rd Most</label>
-			<select class="form-control" 
-				ng-model="selected.feature3" ng-options="x for x in car.features">
-			</select>
-
-			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
-			<button class="btn btn-info" ng-click="nextStep($event)">Next</button>
-		</section>
-
-
-		<section>
-			<h1>Specifics</h1>
-
-			<label>Color</label>
-			<select class="form-control" 
-				ng-model="selected.color" ng-options="x for x in car.colors">
-			</select>
-
-			<label>Transmission</label>
-			<select class="form-control" 
-				ng-model="selected.transmission" ng-options="x for x in car.transmissions">
-			</select>
-
-			<label>Drivetrain</label>
-			<select class="form-control" 
-				ng-model="selected.drivetrain" ng-options="x for x in car.drivetrains">
-			</select>
-
-			<label>Engine</label>
-			<select class="form-control" 
-				ng-model="selected.engine" ng-options="x for x in car.engines">
-			</select>
-
-			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
-			<button class="btn btn-info" ng-click="nextStep($event)">Get Results</button>
-
-		</section>
-
-		<section id="results">
-			<h1>Results</h1>
-
-			<div class="primary-result">
-				<pre>{{ results | json : spacing }}</pre>
-			</div>
-			<div class="secondary-result">
-				Second Result
-			</div>
-			<div class="secondary-result">
-				Third Result
-			</div>
-
-			<button class="btn btn-info" ng-click="prevStep($event)">Back</button>	
-			<button class="btn btn-info" ng-click="resetForm($event)">Start Over</button>
-		</section>
+			</section>
+		</div>
 
 	</main>
 
