@@ -27,7 +27,7 @@ section:first-child {display: block;}
 			<button class="btn btn-info" ng-click="nextStep($event)">I want a used car</button>
 
 
-			<button class="btn btn-info" ng-click="testAPI($event)">Test API</button>
+			<button class="btn btn-info" ng-click="testAPI($event)">Test Time API</button>
 		</section>
 
 		<section>
@@ -115,7 +115,7 @@ section:first-child {display: block;}
 			<h1>Results</h1>
 
 			<div class="primary-result">
-				First Result
+				<pre>{{ results | json : spacing }}</pre>
 			</div>
 			<div class="secondary-result">
 				Second Result

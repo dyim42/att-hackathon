@@ -4,7 +4,7 @@ var app = angular.module('app', []);
 app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 
 	$scope.api = "localhost:5000/search";
-	$scope.results = '';
+	$scope.results = {};
 	$scope.car = {
 		types : [
 			"Sedan",
@@ -83,29 +83,7 @@ app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 	};
 
     $scope.loadResults = function() {
-
-    	var results = [
-    			{
-    				make : 'Ford',
-    				model : 'Escort',
-    				year : '1998'
-    			},
-    			{
-    				make : 'Toyota',
-    				model : 'Corolla',
-    				year : '2001'
-    			},
-    			{
-    				make : 'Toyota',
-    				model : 'Corolla',
-    				year : '2001'
-    			}
-    		];
-
-        $scope.results = results;
-
-        console.log($scope.results);
-
+        $scope.callAPI();
     };
 
     $scope.nextStep = function(event) {
@@ -140,39 +118,51 @@ app.controller('mainController', ['$scope', '$http', function($scope, $http) {
         		break;
     	}
 
-        if (stepToLoad.id == 'results') {
+        if (stepToLoad.attr('id') == 'results') {
+        	console.log('getting results');
         	$scope.loadResults();
         }
 
         thisStep.hide();
         stepToLoad.show();
 
-        console.clear();
+        console.log("Next Step:");
         console.dir($scope.selected);
 
     }
 
- //    $scope.callAPI = function() {
+    // Call api to get car results
+    $scope.callAPI = function() {
 
-	//     $http({
-	// 	  method: 'POST',
-	// 	  url: $scope.api
-	// 	  data: $scope.selected
-	// 	}).then(function successCallback(response) {
-	// 	    // this callback will be called asynchronously
-	// 	    // when the response is available
-	// 	  }, function errorCallback(response) {
-	// 	    // called asynchronously if an error occurs
-	// 	    // or server returns response with an error status.
-	// 	  });
-	// }
+	    $http({
+		  method: 'POST',
+		  url: $scope.api,
+		  data: angular.toJson($scope.selected)
+		}).then(function successCallback(response) {
+		    // this callback will be called asynchronously
+		    // when the response is available
+		    console.log('Success');
+		    console.log(response);
+		    $scope.results = response;
 
+		  }, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		    console.log('Error');
+		    console.log(response);
+		    $scope.results = { Error : "API Call failed."};
+		  });
+	}
+
+	// This is only for testing the time api.
 	$scope.testAPI = function() {
+
+		console.log();
 
 		$http({
 		  method: 'GET',
 		  url: 'http://www.timeapi.org/utc/now',
-		  headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin' : '*'}
+		  headers: {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin' : '*'}
 
 		}).then(function successCallback(response) {
 		    // this callback will be called asynchronously
